@@ -1,4 +1,22 @@
+# Maven
 target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ IDEA
 .idea/
 *.iml
 out/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+
+# Spring
+application-local.properties
+application-dev.properties
+
+# Test
+coverage/
