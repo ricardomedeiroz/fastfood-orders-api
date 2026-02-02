@@ -2,8 +2,6 @@ package com.ricardomedeiros.fastfoodorders.resource;
 
 import com.ricardomedeiros.fastfoodorders.entities.Order;
 import com.ricardomedeiros.fastfoodorders.services.OrderService;
-import jakarta.persistence.Id;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
