@@ -1,8 +1,11 @@
 package com.ricardomedeiros.fastfoodorders.config;
 
 import com.ricardomedeiros.fastfoodorders.entities.Client;
+import com.ricardomedeiros.fastfoodorders.entities.Menu;
 import com.ricardomedeiros.fastfoodorders.entities.Order;
+import com.ricardomedeiros.fastfoodorders.enums.Category;
 import com.ricardomedeiros.fastfoodorders.repositories.ClientRepository;
+import com.ricardomedeiros.fastfoodorders.repositories.MenuRepository;
 import com.ricardomedeiros.fastfoodorders.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -24,6 +27,10 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private ClientRepository clientRepository;
 
+    @Autowired
+    private MenuRepository menuRepository;
+
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -39,6 +46,11 @@ public class TestConfig implements CommandLineRunner {
 
 
         clientRepository.saveAll(Arrays.asList(c1,c2,c3));
+
+        Menu m1 = new Menu(null, "Hamburguer","test", 5.0, Category.LUNCH, true);
+        Menu m2 = new Menu(null, "CupCake","test", 2.0, Category.DESSERT, true);
+
+        menuRepository.saveAll(Arrays.asList(m1,m2));
     }
 
 
