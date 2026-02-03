@@ -1,6 +1,8 @@
 package com.ricardomedeiros.fastfoodorders.config;
 
+import com.ricardomedeiros.fastfoodorders.entities.Client;
 import com.ricardomedeiros.fastfoodorders.entities.Order;
+import com.ricardomedeiros.fastfoodorders.repositories.ClientRepository;
 import com.ricardomedeiros.fastfoodorders.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,7 +21,8 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
-
+    @Autowired
+    private ClientRepository clientRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -30,8 +33,12 @@ public class TestConfig implements CommandLineRunner {
 
         orderRepository.saveAll(Arrays.asList(o1,o2,o3));
 
+        Client c1 = new Client(null,"Pedro Gomes", "pedro@gmail.com", "777-777", "pedro123");
+        Client c2 = new Client(null,"Isaque Carvalho", "isaque@gmail.com", "222-222", "Is@#@");
+        Client c3 = new Client(null,"Maria Silva", "maria@gmail.com", "121-121", "12345");
 
 
+        clientRepository.saveAll(Arrays.asList(c1,c2,c3));
     }
 
 
