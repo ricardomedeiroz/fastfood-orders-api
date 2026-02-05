@@ -41,11 +41,11 @@ public class OrderItem implements Serializable {
     @ManyToOne
     @MapsId("menuId")
     @JoinColumn(name = "menu_id")
-    public Menu getProduct(){
+    public Menu getMenu(){
         return id.getMenu();
     }
 
-    public void setProduct(Menu menu){
+    public void setMenu(Menu menu){
         id.setMenu(menu);
     }
 
@@ -83,4 +83,6 @@ public class OrderItem implements Serializable {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+
 }
