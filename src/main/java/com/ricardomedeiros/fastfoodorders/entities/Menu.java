@@ -4,6 +4,7 @@ import com.ricardomedeiros.fastfoodorders.enums.Category;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 
 @Entity
@@ -17,8 +18,11 @@ public class Menu implements Serializable {
     private String name;
     private String description;
     private Double price;
+    @Enumerated(EnumType.STRING)
     private Category category;
     private Boolean available;
+
+
 
     public Menu() {
     }
@@ -74,5 +78,17 @@ public class Menu implements Serializable {
 
     public boolean isAvailable() {
         return available;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Menu menu = (Menu) o;
+        return Objects.equals(id, menu.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

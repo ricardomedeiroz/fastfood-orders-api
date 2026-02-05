@@ -2,8 +2,10 @@ package com.ricardomedeiros.fastfoodorders.enums;
 
 public enum Category {
 
-    LUNCH,
+    BURGUER,
     DRINK,
-    DESSERT
+    SIDE,
+    DEESSRT,
+    COMBO
 
 }
