@@ -1,4 +1,4 @@
-package com.ricardomedeiros.fastfoodorders.resource;
+package com.ricardomedeiros.fastfoodorders.controller;
 import com.ricardomedeiros.fastfoodorders.entities.Menu;
 import com.ricardomedeiros.fastfoodorders.services.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/menu")
-public class MenuResource {
+public class MenuController {
 
     @Autowired
     private MenuService menuService;

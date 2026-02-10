@@ -1,5 +1,6 @@
 package com.ricardomedeiros.fastfoodorders.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ricardomedeiros.fastfoodorders.enums.OrderStatus;
 import com.ricardomedeiros.fastfoodorders.enums.PaymentStatus;
 import jakarta.persistence.*;
@@ -25,7 +26,6 @@ public class Order implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
-
 
     @ManyToOne
     @JoinColumn(name = "client_id")

@@ -1,11 +1,11 @@
-package com.ricardomedeiros.fastfoodorders.enums;
+    package com.ricardomedeiros.fastfoodorders.enums;
 
-public enum Category {
+    public enum Category {
 
-    BURGUER,
-    DRINK,
-    SIDE,
-    DEESSRT,
-    COMBO
+        BURGUER,
+        DRINK,
+        SIDE,
+        DESSERT,
+        COMBO
 
-}
+    }

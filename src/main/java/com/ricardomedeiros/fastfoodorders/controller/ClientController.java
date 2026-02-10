@@ -1,4 +1,4 @@
-package com.ricardomedeiros.fastfoodorders.resource;
+package com.ricardomedeiros.fastfoodorders.controller;
 import com.ricardomedeiros.fastfoodorders.entities.Client;
 import com.ricardomedeiros.fastfoodorders.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clients")
-public class ClientResource {
+public class ClientController {
 
     @Autowired
     private ClientService clientService;

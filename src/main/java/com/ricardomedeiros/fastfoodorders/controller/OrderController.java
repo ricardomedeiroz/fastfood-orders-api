@@ -1,4 +1,4 @@
-package com.ricardomedeiros.fastfoodorders.resource;
+package com.ricardomedeiros.fastfoodorders.controller;
 
 import com.ricardomedeiros.fastfoodorders.entities.Order;
 import com.ricardomedeiros.fastfoodorders.services.OrderService;
@@ -12,31 +12,29 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
-public class OrderResource {
+public class OrderController {
 
     @Autowired
     private OrderService orderService;
 
 
     @GetMapping
-    public ResponseEntity<List<Order>> findAll(){
+    public ResponseEntity<List<Order>> findAll() {
         List<Order> list = orderService.findAll();
         return ResponseEntity.ok().body(list);
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> findById(@PathVariable Long id){
-    Order order = orderService.findById(id);
-    return ResponseEntity.ok().body(order);
+    public ResponseEntity<Order> findById(@PathVariable Long id) {
+        Order order = orderService.findById(id);
+        return ResponseEntity.ok().body(order);
 
     }
 
 
-
-
     @PostMapping
-    public ResponseEntity<Order> insert(@RequestBody Order obj){
+    public ResponseEntity<Order> insert(@RequestBody Order obj) {
         obj = orderService.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(obj);
@@ -48,8 +46,12 @@ public class OrderResource {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Order> update(@PathVariable Long id, @RequestBody Order order) {
+        order = orderService.update(id, order);
+        return ResponseEntity.ok().body(order);
 
-
+    }
 
 
 }

@@ -1,5 +1,6 @@
 package com.ricardomedeiros.fastfoodorders.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ricardomedeiros.fastfoodorders.entities.pk.OrderItemPK;
 import jakarta.persistence.*;
 
@@ -26,7 +27,7 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
-
+    @JsonIgnore
     @ManyToOne
     @MapsId("orderId")
     @JoinColumn(name = "order_id")
