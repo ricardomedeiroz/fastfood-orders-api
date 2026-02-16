@@ -1,13 +1,11 @@
 package com.ricardomedeiros.fastfoodorders.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ricardomedeiros.fastfoodorders.enums.OrderStatus;
 import com.ricardomedeiros.fastfoodorders.enums.PaymentStatus;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -69,6 +67,10 @@ public class Order implements Serializable {
         return client;
     }
 
+    public Client setClient(Client client) {
+        return this.client;
+    }
+
     public List<OrderItem> getItems() {
         return items;
     }
@@ -88,8 +90,6 @@ public class Order implements Serializable {
         }
         return sum;
     }
-
-
 
     @Override
     public boolean equals(Object o) {

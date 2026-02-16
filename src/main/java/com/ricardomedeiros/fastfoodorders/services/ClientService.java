@@ -23,6 +23,7 @@ public class ClientService {
     }
 
     public Client insert (Client client){
+
         return repository.save(client);
     }
 

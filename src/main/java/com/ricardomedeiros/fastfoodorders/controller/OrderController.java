@@ -1,5 +1,6 @@
 package com.ricardomedeiros.fastfoodorders.controller;
 
+import com.ricardomedeiros.fastfoodorders.dto.CreateOrderDTO;
 import com.ricardomedeiros.fastfoodorders.entities.Order;
 import com.ricardomedeiros.fastfoodorders.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-
     @GetMapping
     public ResponseEntity<List<Order>> findAll() {
         List<Order> list = orderService.findAll();
@@ -33,25 +33,6 @@ public class OrderController {
     }
 
 
-    @PostMapping
-    public ResponseEntity<Order> insert(@RequestBody Order obj) {
-        obj = orderService.insert(obj);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-        return ResponseEntity.created(uri).body(obj);
-    }
-
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        orderService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<Order> update(@PathVariable Long id, @RequestBody Order order) {
-        order = orderService.update(id, order);
-        return ResponseEntity.ok().body(order);
-
-    }
 
 
 }

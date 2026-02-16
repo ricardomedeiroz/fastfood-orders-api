@@ -1,8 +1,11 @@
 package com.ricardomedeiros.fastfoodorders.services;
+import com.ricardomedeiros.fastfoodorders.dto.CreateOrderDTO;
+import com.ricardomedeiros.fastfoodorders.dto.OrderItemRequestDTO;
+import com.ricardomedeiros.fastfoodorders.entities.Client;
 import com.ricardomedeiros.fastfoodorders.entities.Order;
+import com.ricardomedeiros.fastfoodorders.entities.OrderItem;
 import com.ricardomedeiros.fastfoodorders.enums.OrderStatus;
 import com.ricardomedeiros.fastfoodorders.repositories.OrderRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,8 @@ public class OrderService {
 
     @Autowired
     private OrderRepository repository;
+    @Autowired
+    private ClientService clientService;
 
     public List<Order> findAll() {
         return repository.findAll();
@@ -26,12 +31,7 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException("Order not found"));
     }
 
-    public Order insert(Order order) {
-        order.setMoment(Instant.now());
-        order.setStatus(OrderStatus.RECEIVED);
 
-        return repository.save(order);
-    }
 
     public void delete(Long id){
 
@@ -39,16 +39,23 @@ public class OrderService {
     }
 
 
-    public Order update(Long id, Order order){
 
-        Order entity = repository.getReferenceById(id);
-        updateData(entity, order);
-        return repository.save(entity);
-    }
 
-    private void updateData(Order entity, Order order){
+    public void updateData(Order entity, Order order){
 
         entity.setStatus(order.getStatus());
+
+    }
+
+    public Order createOrder(CreateOrderDTO dto){
+
+        Client client = clientService.findById(dto.getClientId());
+        Order order = new Order();
+        order.setClient(client);
+        order.setMoment(Instant.now());
+        order.setStatus(OrderStatus.RECEIVED);
+        return repository.save(order);
+
 
     }
 

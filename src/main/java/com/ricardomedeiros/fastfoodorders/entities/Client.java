@@ -73,4 +73,6 @@ public class Client implements Serializable {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+
 }
