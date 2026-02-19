@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,10 +30,8 @@ public class Order implements Serializable {
     @JoinColumn(name = "client_id")
     private Client client;
 
-
-    @OneToMany(mappedBy = "id.order")
-    private List<OrderItem> items;
-
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> items = new ArrayList<>();
 
     public Order() {
     }
@@ -45,8 +44,6 @@ public class Order implements Serializable {
         this.client = client;
     }
 
-
-
     public Long getId() {
         return id;
     }
@@ -55,32 +52,36 @@ public class Order implements Serializable {
         return moment;
     }
 
+    public void setMoment(Instant moment) {
+        this.moment = moment;
+    }
+
     public OrderStatus getStatus() {
         return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
     public PaymentStatus getPaymentStatus() {
         return paymentStatus;
     }
 
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
     public Client getClient() {
         return client;
     }
 
-    public Client setClient(Client client) {
-        return this.client;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public List<OrderItem> getItems() {
         return items;
-    }
-
-    public void setMoment(Instant moment) {
-        this.moment = moment;
-    }
-
-    public void setStatus(OrderStatus status) {
-        this.status = status;
     }
 
     public Double getTotal() {

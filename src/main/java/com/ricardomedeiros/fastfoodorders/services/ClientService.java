@@ -19,7 +19,8 @@ public class ClientService {
     public Client findById(Long id){
 
         return repository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Order not found"));
+                .orElseThrow(() -> new RuntimeException("Client not found"));
+
     }
 
     public Client insert (Client client){

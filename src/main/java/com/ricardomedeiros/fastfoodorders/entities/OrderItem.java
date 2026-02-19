@@ -1,7 +1,6 @@
 package com.ricardomedeiros.fastfoodorders.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ricardomedeiros.fastfoodorders.entities.pk.OrderItemPK;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -11,8 +10,18 @@ import java.util.Objects;
 @Table(name = "tb_order_item")
 public class OrderItem implements Serializable {
 
-    @EmbeddedId
-    private OrderItemPK id = new OrderItemPK();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "menu_id")
+    private Menu menu;
 
     private Integer quantity;
     private Double price;
@@ -21,33 +30,30 @@ public class OrderItem implements Serializable {
     }
 
     public OrderItem(Order order, Menu menu, Integer quantity, Double price) {
-        id.setOrder(order);
-        id.setMenu(menu);
+        this.order = order;
+        this.menu = menu;
         this.quantity = quantity;
         this.price = price;
     }
 
-    @JsonIgnore
-    @ManyToOne
-    @MapsId("orderId")
-    @JoinColumn(name = "order_id")
-    public Order getOrder(){
-        return id.getOrder();
+    public Long getId() {
+        return id;
     }
 
-    public void setOrder(Order order){
-        id.setOrder(order);
+    public Order getOrder() {
+        return order;
     }
 
-    @ManyToOne
-    @MapsId("menuId")
-    @JoinColumn(name = "menu_id")
-    public Menu getMenu(){
-        return id.getMenu();
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
-    public void setMenu(Menu menu){
-        id.setMenu(menu);
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
     }
 
     public Integer getQuantity() {
@@ -66,24 +72,20 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
-    public Double subTotal(){
-
+    public Double subTotal() {
         return price * quantity;
-
     }
-
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        OrderItem orderItem = (OrderItem) o;
-        return Objects.equals(id, orderItem.id);
+        if (this == o) return true;
+        if (!(o instanceof OrderItem)) return false;
+        OrderItem that = (OrderItem) o;
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(id);
     }
-
-
 }

@@ -4,6 +4,7 @@ import com.ricardomedeiros.fastfoodorders.dto.CreateOrderDTO;
 import com.ricardomedeiros.fastfoodorders.entities.Order;
 import com.ricardomedeiros.fastfoodorders.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -32,7 +33,13 @@ public class OrderController {
 
     }
 
+    @PostMapping
+    public ResponseEntity<Order> create (@RequestBody CreateOrderDTO dto){
 
+        Order order = orderService.createOrder(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(order);
+
+    }
 
 
 }
