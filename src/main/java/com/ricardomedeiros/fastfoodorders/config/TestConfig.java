@@ -1,25 +1,15 @@
 package com.ricardomedeiros.fastfoodorders.config;
-
 import com.ricardomedeiros.fastfoodorders.entities.Menu;
-
 import com.ricardomedeiros.fastfoodorders.enums.Category;
-
-import com.ricardomedeiros.fastfoodorders.repositories.ClientRepository;
 import com.ricardomedeiros.fastfoodorders.repositories.MenuRepository;
-import com.ricardomedeiros.fastfoodorders.repositories.OrderItemRepository;
-import com.ricardomedeiros.fastfoodorders.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-
 
 import java.util.Arrays;
 
-
 @Configuration
 public class TestConfig implements CommandLineRunner {
-
 
     @Autowired
     private MenuRepository menuRepository;

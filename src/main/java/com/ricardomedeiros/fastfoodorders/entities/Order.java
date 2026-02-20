@@ -1,7 +1,9 @@
 package com.ricardomedeiros.fastfoodorders.entities;
 
+import com.ricardomedeiros.fastfoodorders.dto.OrderItemRequestDTO;
 import com.ricardomedeiros.fastfoodorders.enums.OrderStatus;
 import com.ricardomedeiros.fastfoodorders.enums.PaymentStatus;
+import com.ricardomedeiros.fastfoodorders.exceptions.ActionNotAllowedException;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -91,6 +93,29 @@ public class Order implements Serializable {
         }
         return sum;
     }
+
+    public void cancel(){
+
+        if (getStatus() == OrderStatus.RECEIVED){
+            setStatus(OrderStatus.CANCELED);
+
+        }else  {
+
+            throw new ActionNotAllowedException("Order cannot be cancelled in status " + getStatus());
+
+        }
+
+    }
+
+    public void updateItems(List<OrderItemRequestDTO> items){
+
+
+
+    }
+
+
+
+
 
     @Override
     public boolean equals(Object o) {
