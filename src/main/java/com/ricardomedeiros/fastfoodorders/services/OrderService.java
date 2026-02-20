@@ -8,10 +8,13 @@ import com.ricardomedeiros.fastfoodorders.entities.OrderItem;
 import com.ricardomedeiros.fastfoodorders.enums.OrderStatus;
 import com.ricardomedeiros.fastfoodorders.enums.PaymentStatus;
 import com.ricardomedeiros.fastfoodorders.repositories.OrderRepository;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,6 +38,33 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException("Order not found"));
     }
 
+    @Transactional
+    public Order updateOrderItems(long orderId, List<OrderItemRequestDTO>itemsDto ){
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new EntityNotFoundException("Order not found with id " + orderId));
+
+
+        List<OrderItem> newItems = new ArrayList<>();
+        for (OrderItemRequestDTO dto : itemsDto){
+
+         Menu menuItem = menuService.findById(dto.getMenuItemId());
+
+         OrderItem item = new OrderItem();
+         item.setOrder(order);
+         item.setMenu(menuItem);
+         item.setQuantity(dto.getQuantity());
+         item.setPrice(menuItem.getPrice());
+
+         newItems.add(item);
+
+        }
+
+        order.updateItems(newItems);
+
+        return orderRepository.save(order);
+    }
+
 
 
     public void delete(Long id){
@@ -42,12 +72,15 @@ public class OrderService {
         orderRepository.deleteById(id);
     }
 
+    @Transactional
+    public Order cancelOrder(Long orderId){
 
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new EntityNotFoundException("Order not found with id " + orderId));
 
+        order.cancel();
 
-    public void updateData(Order entity, Order order){
-
-        entity.setStatus(order.getStatus());
+        return orderRepository.save(order);
 
     }
 

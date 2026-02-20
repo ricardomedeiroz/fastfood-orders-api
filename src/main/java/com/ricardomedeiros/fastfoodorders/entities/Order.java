@@ -96,24 +96,30 @@ public class Order implements Serializable {
 
     public void cancel(){
 
-        if (getStatus() == OrderStatus.RECEIVED){
-            setStatus(OrderStatus.CANCELED);
+       ensureReceivedStatus();
+       setStatus(OrderStatus.CANCELED);
 
-        }else  {
+    }
 
-            throw new ActionNotAllowedException("Order cannot be cancelled in status " + getStatus());
+    public void updateItems(List<OrderItem> newItems) {
+        ensureReceivedStatus();
+
+        this.items.clear();
+
+        for (OrderItem item : newItems) {
+            item.setOrder(this);
+            this.items.add(item);
+        }
+    }
+
+    public void ensureReceivedStatus() {
+
+        if (getStatus() != OrderStatus.RECEIVED){
+            throw new ActionNotAllowedException("Order canoot be modifed in status" + getStatus());
 
         }
 
     }
-
-    public void updateItems(List<OrderItemRequestDTO> items){
-
-
-
-    }
-
-
 
 
 
